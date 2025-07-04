@@ -6,12 +6,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 
 public class Arm extends SubsystemBase {
     private WPI_TalonSRX motor;
 
     public Arm() {
-        motor = new WPI_TalonSRX(8);
+        motor = new WPI_TalonSRX(Constants.armMotorID);
     }
 
     public Command runArm(DoubleSupplier speed) {

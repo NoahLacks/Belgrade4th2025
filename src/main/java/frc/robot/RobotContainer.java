@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Manipulator;
 
 public class RobotContainer {
   CommandXboxController driver;
@@ -17,12 +19,16 @@ public class RobotContainer {
 
   Drivetrain drivetrain;
 
+  Manipulator manipulator;
+
   public RobotContainer() {
     driver = new CommandXboxController(0);
 
     arm = new Arm();
 
     drivetrain = new Drivetrain();
+
+    manipulator = new Manipulator();
 
     configureBindings();
   }
@@ -33,11 +39,19 @@ public class RobotContainer {
     );
 
     driver.a().whileTrue(
-      arm.runArm(() -> -.25)
+      arm.runArm(() -> Constants.armDownSpeed)
     );
 
     driver.y().whileTrue(
-      arm.runArm(() -> .25)
+      arm.runArm(() -> Constants.armUpSpeed)
+    );
+
+    driver.rightTrigger().whileTrue(
+      manipulator.runManipulator(() -> Constants.manipulatorSpeedForward)
+    );
+
+    driver.leftTrigger().whileTrue(
+      manipulator.runManipulator(() -> Constants.manipulatorSpeedBackward)
     );
   }
 
